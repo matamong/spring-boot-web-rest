@@ -40,6 +40,7 @@ public class BoardRestController {
 
     @PostMapping
     public ResponseEntity<?> postBoard(@RequestBody Board board) {
+        //valid 체크
         board.setCreatedDateNow();
         boardRepository.save(board);
         return new ResponseEntity<>("{}", HttpStatus.CREATED);
@@ -47,7 +48,8 @@ public class BoardRestController {
 
     @PutMapping("/{idx}")
     public ResponseEntity<?> putBoard(@PathVariable("idx")Long idx, @RequestBody Board board) {
-        Board persistBoard = boardRepository.getOne(idx);
+        //valid 체크
+        Board persistBoard = boardRepository.getOne(idx) ;
         persistBoard.update(board);
         boardRepository.save(persistBoard);
         return new ResponseEntity<>("{}", HttpStatus.OK);
@@ -55,6 +57,7 @@ public class BoardRestController {
 
     @DeleteMapping("/{idx}")
     public ResponseEntity<?> deleteBoard(@PathVariable("idx")Long idx) {
+        //valid 체크
         boardRepository.deleteById(idx);
         return new ResponseEntity<>("{}", HttpStatus.OK);
     }
